@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Cadastro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #f4f4f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 1em;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .list {
+            text-align: left;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Sistema de Cadastro</h1>
+        <p>Preencha os campos abaixo para cadastrar um usuário:</p>
+        <input type="text" id="nome" placeholder="Nome">
+        <input type="number" id="idade" placeholder="Idade">
+        <input type="email" id="email" placeholder="E-mail">
+        <button onclick="cadastrar()">Cadastrar</button>
+        <button onclick="listar()">Listar Usuários</button>
+        <div class="list" id="listaUsuarios"></div>
+    </div>
+
+    <script>
+        // Array para armazenar os dados dos usuários
+        const usuarios = [];
+
+        // Função para cadastrar um novo usuário
+        function cadastrar() {
+            const nome = document.getElementById("nome").value.trim();
+            const idade = document.getElementById("idade").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const lista = document.getElementById("listaUsuarios");
+
+            if (!nome || !idade || !email) {
+                alert("Por favor, preencha todos os campos!");
+                return;
+            }
+
+            usuarios.push({ nome, idade, email });
+            alert(`Usuário ${nome} cadastrado com sucesso!`);
+
+            // Limpar os campos após o cadastro
+            document.getElementById("nome").value = "";
+            document.getElementById("idade").value = "";
+            document.getElementById("email").value = "";
+            lista.innerHTML = ""; // Limpa a lista para evitar duplicação ao listar
+        }
+
+        // Função para listar os usuários cadastrados
+        function listar() {
+            const lista = document.getElementById("listaUsuarios");
+            lista.innerHTML = "";
+
+            if (usuarios.length === 0) {
+                lista.innerHTML = "<p>Nenhum usuário cadastrado.</p>";
+                return;
+            }
+
+            usuarios.forEach((usuario, index) => {
+                lista.innerHTML += `
+                    <p><strong>${index + 1}.</strong> Nome: ${usuario.nome}, Idade: ${usuario.idade}, E-mail: ${usuario.email}</p>
+                `;
+            });
+        }
+    </script>
+</body>
+
+</html>
